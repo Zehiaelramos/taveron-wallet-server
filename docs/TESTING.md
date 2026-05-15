@@ -6,7 +6,7 @@ Este documento detalla los procedimientos para validar la integridad, seguridad 
 
 ## 1. Pruebas Automatizadas (Pytest)
 
-Hemos implementado un suite de **17 pruebas unitarias e integrales** que utilizan una base de datos **SQLite en memoria**.
+Hemos implementado un suite de **20 pruebas unitarias e integrales** que utilizan una base de datos **SQLite en memoria**.
 
 ### Ejecución de todos los tests:
 ```powershell
@@ -26,6 +26,10 @@ Hemos implementado un suite de **17 pruebas unitarias e integrales** que utiliza
     - **Filtrado por tipo** (card, clabe, etc.).
     - **Actualización de estatus** (activar/desactivar).
     - **Soft Delete** (borrado lógico).
+- **`tests/test_security_cases.py` (3 tests)**: 
+    - **Protección IDOR**: Un usuario no puede ver datos de otro.
+    - Validación de tokens inválidos.
+    - Casos de borde en paginación.
 - **`tests/test_schemas.py` (4 tests)**: 
     - Validación de tarjetas (15/16 dígitos).
     - Validación de CLABE (18 dígitos).
