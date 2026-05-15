@@ -98,6 +98,3 @@ Este documento describe el plan de ejecución para el backend de **Taveron Walle
 | Fase 5 | ✅ Completado | 100% |
 | Fase 6 | ✅ Completado | 100% |
 | Fase 7 | ✅ Completado | 100% |
-
----
-**Nota:** Para la implementación del Frontend, consulte el documento [FRONTEND_INSTRUCTIONS.md](FRONTEND_INSTRUCTIONS.md).
