@@ -1,6 +1,7 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Request
+from fastapi import APIRouter, Depends, HTTPException, status, Request, Form
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
+from typing import Optional
 from app.db.session import get_db
 from app.schemas.user import UserCreate, UserOut, UserLogin, Token
 from app.services.auth import AuthService
@@ -8,6 +9,26 @@ from app.models.user import User
 from app.core.deps import get_current_user
 
 router = APIRouter(prefix="/auth", tags=["Autenticación"])
+
+# Clase personalizada para mostrar ejemplos en el formulario de Swagger
+class OAuth2PasswordRequestFormDefault(OAuth2PasswordRequestForm):
+    def __init__(
+        self,
+        grant_type: str = Form(None, pattern="password"),
+        username: str = Form(..., examples=["admin@taveron.com"]),
+        password: str = Form(..., examples=["Taveron1!"]),
+        scope: str = Form(""),
+        client_id: Optional[str] = Form(None),
+        client_secret: Optional[str] = Form(None),
+    ):
+        super().__init__(
+            grant_type=grant_type,
+            username=username,
+            password=password,
+            scope=scope,
+            client_id=client_id,
+            client_secret=client_secret,
+        )
 
 @router.post("/register", response_model=UserOut)
 async def register(
@@ -22,7 +43,7 @@ async def register(
 @router.post("/login", response_model=Token)
 async def login(
     request: Request,
-    form_data: OAuth2PasswordRequestForm = Depends(), 
+    form_data: OAuth2PasswordRequestFormDefault = Depends(), 
     db: AsyncSession = Depends(get_db)
 ):
     """Inicia sesión y devuelve un token de acceso (Compatible con Swagger)."""
