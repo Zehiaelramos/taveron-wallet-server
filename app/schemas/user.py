@@ -4,12 +4,12 @@ from typing import Optional
 
 # Esquema compartido (Base)
 class UserBase(BaseModel):
-    email: EmailStr = Field(..., description="Correo electrónico del usuario")
-    full_name: Optional[str] = Field(None, description="Nombre completo del usuario")
+    email: EmailStr = Field(..., description="Correo electrónico del usuario", examples=["admin@taveron.com"])
+    full_name: Optional[str] = Field(None, description="Nombre completo del usuario", examples=["Admin Taveron"])
 
 # Esquema para crear un usuario (Registro)
 class UserCreate(UserBase):
-    password: str = Field(..., min_length=8, description="Contraseña de al menos 8 caracteres")
+    password: str = Field(..., min_length=8, description="Contraseña de al menos 8 caracteres", examples=["Taveron1!"])
 
 # Esquema para actualizar un usuario
 class UserUpdate(BaseModel):
@@ -26,8 +26,8 @@ class UserOut(UserBase):
 
 # Esquema para Login
 class UserLogin(BaseModel):
-    email: EmailStr
-    password: str
+    email: EmailStr = Field(..., examples=["admin@taveron.com"])
+    password: str = Field(..., examples=["Taveron1!"])
 
 # Esquema para el Token de acceso
 class Token(BaseModel):
